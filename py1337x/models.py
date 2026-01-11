@@ -40,6 +40,7 @@ class TorrentInfo:
     name: Optional[str]
     short_name: Optional[str]
     description: Optional[str]
+    description_panel: None
     category: Optional[str]
     type: Optional[str]
     genre: Optional[List[str]]

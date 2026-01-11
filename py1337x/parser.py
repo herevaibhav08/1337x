@@ -90,6 +90,8 @@ def info_parser(response: Response, base_url: str) -> models.TorrentInfo:
     description = soup.find("div", {"class": "torrent-detail-info"})
     description = description.find("p").getText().strip() if description else None
 
+    description_panel = soup.find("div", {"id": "description"})
+
     genre = soup.find("div", {"class": "torrent-category clearfix"})
     genre = [i.text.strip() for i in genre.find_all("span")] if genre else None
 
@@ -130,7 +132,7 @@ def info_parser(response: Response, base_url: str) -> models.TorrentInfo:
         seeders = second_list[3].find("span").getText()
         leechers = second_list[4].find("span").getText()
     else:
-        category = species = language = size = uploader = uploader_link = downloads = last_checked = date_uploaded = (
+        description_panel = category = species = language = size = uploader = uploader_link = downloads = last_checked = date_uploaded = (
             seeders
         ) = leechers = None
 
@@ -138,6 +140,7 @@ def info_parser(response: Response, base_url: str) -> models.TorrentInfo:
         name=name,
         short_name=short_name,
         description=description,
+        description_panel=description_panel,
         category=category,
         type=species,
         genre=genre,
